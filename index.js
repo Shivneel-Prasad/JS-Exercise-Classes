@@ -110,6 +110,7 @@ class Car {
         + Speaking should return a phrase `Hello my name is {name}, I am from {location}`.
         + {name} and {location} of course come from the instance's own properties.
 */
+//---Parent Class
 class Lambdasian {
   constructor(attri){
     this.name = attri.name
@@ -121,7 +122,7 @@ class Lambdasian {
   }
 }
 
-//---Child
+//---Child Class
 /*
   TASK 4
     - Write an Instructor class extending Lambdasian.
@@ -136,11 +137,22 @@ class Lambdasian {
         + `demo` receives a `subject` string as an argument and returns the phrase 'Today we are learning about {subject}' where subject is the param passed in.
         + `grade` receives a `student` object and a `subject` string as arguments and returns '{student.name} receives a perfect score on {subject}'
 */
-class Instructor {
-
+class Instructor extends Lambdasian {
+  constructor(attri, specialty, favLanguage, catchPhrase) {
+    super(attri, specialty, favLanguage, catchPhrase);
+    this.specialty = attri.specialty;
+    this.favLanguage = attri.favLanguage;
+    this.catchPhrase = attri.catchPhrase;
+  }
+  demo(subject) {
+    return `Today we are learning about ${subject}`;
+  }
+  grade(student, subject){
+    return `${student.name} receives a perfect score on ${subject}`;
+  }
 }
 
-//---Child
+//---Child Class
 /*
   TASK 5
     - Write a Student class extending Lambdasian.
@@ -156,11 +168,25 @@ class Instructor {
         + `PRAssignment` a method that receives a subject as an argument and returns `student.name has submitted a PR for {subject}`
         + `sprintChallenge` similar to PRAssignment but returns `student.name has begun sprint challenge on {subject}`
 */
-class Student {
-   
+class Student extends Lambdasian {
+  constructor(attri, previousBackground, className, favSubjects){
+  super(attri, previousBackground, className, favSubjects);
+    this.previousBackground = attri.previousBackground;
+    this.className = attri.className;
+    this.favSubjects = attri.favSubjects;
+  }
+  listSubjects (){
+    return `Loving ${this.favSubjects}`;
+  }
+  PRAssignment (subject) {
+    return `${this.name} has submitted a PR for ${subject}`;
+  }
+  sprintChallenge (subject) {
+    return `${this.name} has begun sprint challenge on ${subject}`;
+  }
 }
 
-//--GrandChild
+//--Grand-Child Class
 /*
   TASK 6
     - Write a ProjectManager class extending Instructor.
@@ -174,8 +200,18 @@ class Student {
         + `standUp` a method that takes in a slack channel and returns `{name} announces to {channel}, @channel standy times!`
         + `debugsCode` a method that takes in a student object and a subject and returns `{name} debugs {student.name}'s code on {subject}`
 */
-class ProjectManager {
-   
+class ProjectManager extends Instructor {
+  constructor(attri, gradClassName, favInstructor){
+    super(attri, gradClassName, favInstructor);
+    this.gradClassName = attri.gradClassName;
+    this.favInstructor = attri.favInstructor;
+  }
+  standUp (channel){
+    return `${this.name} announces to ${channel}, @channel standy times!`
+  }
+  debugsCode (student, subject){
+    return `${this.name} debugs ${student.name}'s code on ${subject}`;
+  }
 }
 /*
   STRETCH PROBLEM (no tests!)
