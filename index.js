@@ -42,7 +42,22 @@ class Airplane {
 */
 
 class Person {
-  
+  constructor(name, age){
+    this.name = name
+    this.age = age
+    this.stomach = []
+  }
+  eat(edible) { 
+    if(this.stomach.length < 10){
+      this.stomach.push(edible)
+    }
+  }  
+  poop() {
+    this.stomach = []
+  }  
+  toString() {
+    return `${this.name} and ${this.age}`;
+  }
 }
 
 /*
@@ -60,9 +75,29 @@ class Person {
 */
 
 class Car {
-  
+  constructor(model, mpg){
+    this.model = model
+    this.milesPerGallon = mpg
+    this.tank = 0
+    this.odometer = 0
+  }
+  fill (gallons){
+    this.tank += gallons;
+  }
+  drive (dist) {
+    const drivableMiles = this.tank * this.milesPerGallon;
+    if (dist <= drivableMiles) {
+      this.odometer = this.odometer + dist;
+      this.tank = this.tank - (dist / this.milesPerGallon);
+    } else {
+      this.odometer = this.odometer + drivableMiles;
+      this.tank = 0;
+      return `I ran out of fuel at ${this.odometer} miles`;
+    }
+  }
 }
 
+//---Parent
 /*
   TASK 3
     - Write a Lambdasian class.
@@ -76,9 +111,17 @@ class Car {
         + {name} and {location} of course come from the instance's own properties.
 */
 class Lambdasian {
-  
+  constructor(attri){
+    this.name = attri.name
+    this.age = attri.age
+    this.location = attri.location
+  }
+  speak(){
+    return `Hello my name is ${this.name}, I am from ${this.location}`;
+  }
 }
 
+//---Child
 /*
   TASK 4
     - Write an Instructor class extending Lambdasian.
@@ -96,6 +139,8 @@ class Lambdasian {
 class Instructor {
 
 }
+
+//---Child
 /*
   TASK 5
     - Write a Student class extending Lambdasian.
@@ -115,6 +160,7 @@ class Student {
    
 }
 
+//--GrandChild
 /*
   TASK 6
     - Write a ProjectManager class extending Instructor.
